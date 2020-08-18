@@ -1,3 +1,5 @@
+import 'package:Timely/const/theme_data.dart';
+import 'package:Timely/enums.dart';
 import 'package:Timely/models/data.dart';
 import 'package:Timely/models/menu_info.dart';
 import 'package:Timely/widgets/clock_widget.dart';
@@ -36,96 +38,101 @@ class _HomePageState extends State<HomePage> {
             width: 1,
           ),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    fit: FlexFit.tight,
-                    child: Text(
-                      'Timely',
-                      style: TextStyle(
-                          fontFamily: 'avenir',
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          fontSize: 24),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          formattedTime,
+            child: Consumer<MenuInfo>(
+              builder: (BuildContext context, MenuInfo value, Widget child) {
+                if (value.menuType != MenuType.clock) return Container();
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.tight,
+                        child: Text(
+                          'Timely',
                           style: TextStyle(
                               fontFamily: 'avenir',
+                              fontWeight: FontWeight.w700,
                               color: Colors.white,
-                              fontSize: 64),
+                              fontSize: 24),
                         ),
-                        Text(
-                          formattedDate,
-                          style: TextStyle(
-                              fontFamily: 'avenir',
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Flexible(
-                    flex: 5,
-                    fit: FlexFit.tight,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: ClockView(
-                        size: MediaQuery.of(context).size.height / 4,
                       ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    fit: FlexFit.tight,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Timezone',
-                          style: TextStyle(
-                              fontFamily: 'avenir',
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.language,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 16,
-                            ),
+                      Flexible(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              'UTC' + offsetSign + timeZoneString,
+                              formattedTime,
                               style: TextStyle(
                                   fontFamily: 'avenir',
                                   color: Colors.white,
-                                  fontSize: 14),
+                                  fontSize: 64),
+                            ),
+                            Text(
+                              formattedDate,
+                              style: TextStyle(
+                                  fontFamily: 'avenir',
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white,
+                                  fontSize: 20),
                             ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 5,
+                        fit: FlexFit.tight,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: ClockView(
+                            size: MediaQuery.of(context).size.height / 4,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        fit: FlexFit.tight,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Timezone',
+                              style: TextStyle(
+                                  fontFamily: 'avenir',
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.language,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Text(
+                                  'UTC' + offsetSign + timeZoneString,
+                                  style: TextStyle(
+                                      fontFamily: 'avenir',
+                                      color: Colors.white,
+                                      fontSize: 14),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ],
@@ -137,9 +144,11 @@ class _HomePageState extends State<HomePage> {
     return Consumer<MenuInfo>(
       builder: (BuildContext context, MenuInfo value, Widget child) {
         return FlatButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(topRight: Radius.circular(32))),
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           color: currentMenuInfo.menuType == value.menuType
-              ? Colors.red
+              ? CustomColors.menuBackgroundColor
               : Colors.transparent,
           onPressed: () {
             var menuInfo = Provider.of<MenuInfo>(context, listen: false);
