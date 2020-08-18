@@ -35,10 +35,13 @@ class _ClockViewState extends State<ClockView> {
 class ClockPainter extends CustomPainter {
   var dateTime = DateTime.now();
 
+  //60 sec - 360, 1 sec - 6degree
+  //12 hours  - 360, 1 hour - 30degrees, 1 min - 0.5degrees
+
   @override
   void paint(Canvas canvas, Size size) {
     var centerX = size.width / 2;
-    var centerY = size.width / 2;
+    var centerY = size.height / 2;
     var center = Offset(centerX, centerY);
     var radius = min(centerX, centerY);
 
@@ -80,22 +83,19 @@ class ClockPainter extends CustomPainter {
     canvas.drawCircle(center, radius - 40, fillBrush);
     canvas.drawCircle(center, radius - 40, outlineBrush);
 
-    /* Doing the math for calculating seconds radius */
-    var secHandX = centerX + 80 * cos(dateTime.second * 6 * pi / 180);
-    var secHandY = centerX + 80 * sin(dateTime.second * 6 * pi / 180);
-    canvas.drawLine(center, Offset(secHandX, secHandY), secHandBrush);
+    var hourHandX = centerX +
+        60 * cos((dateTime.hour * 30 + dateTime.minute * 0.5) * pi / 180);
+    var hourHandY = centerX +
+        60 * sin((dateTime.hour * 30 + dateTime.minute * 0.5) * pi / 180);
+    canvas.drawLine(center, Offset(hourHandX, hourHandY), hourHandBrush);
 
-    /* Doing the math for calculating minute radius */
     var minHandX = centerX + 80 * cos(dateTime.minute * 6 * pi / 180);
     var minHandY = centerX + 80 * sin(dateTime.minute * 6 * pi / 180);
     canvas.drawLine(center, Offset(minHandX, minHandY), minHandBrush);
 
-    /* Doing the math for calculating hour radius */
-    var hourHandX = centerX +
-        60 * cos((dateTime.hour * 30 + dateTime.minute * 0.5) * pi / 180);
-    var hourHandY = centerX +
-        60 * cos((dateTime.hour * 30 + dateTime.minute * 0.5) * pi / 180);
-    canvas.drawLine(center, Offset(hourHandX, hourHandY), hourHandBrush);
+    var secHandX = centerX + 80 * cos(dateTime.second * 6 * pi / 180);
+    var secHandY = centerX + 80 * sin(dateTime.second * 6 * pi / 180);
+    canvas.drawLine(center, Offset(secHandX, secHandY), secHandBrush);
 
     canvas.drawCircle(center, 16, centerFillBrush);
 

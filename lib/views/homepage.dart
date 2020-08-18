@@ -17,7 +17,6 @@ class _HomePageState extends State<HomePage> {
     var offsetSign = '';
 
     if (!timeZoneString.startsWith('-')) offsetSign = '+';
-    print(timeZoneString);
 
     return Scaffold(
       backgroundColor: Color(0xFF2D2F41),
@@ -26,18 +25,10 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                onPressed: () {},
-                child: Column(
-                  children: <Widget>[
-                    FlutterLogo(),
-                    Text(
-                      'Timely',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
+              buildMenuButton('Clock', 'assets/clock_icon.png'),
+              buildMenuButton('Alarm', 'assets/alarm_icon.png'),
+              buildMenuButton('Timer', 'assets/timer_icon.png'),
+              buildMenuButton('Stopwatch', 'assets/stopwatch_icon.png'),
             ],
           ),
           VerticalDivider(
@@ -52,23 +43,35 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Text(
                     'Timely',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    style: TextStyle(
+                        fontFamily: 'avenir',
+                        color: Colors.white,
+                        fontSize: 24),
                   ),
                   SizedBox(
                     height: 32,
                   ),
                   Text(
                     formattedTime,
-                    style: TextStyle(color: Colors.white, fontSize: 64),
+                    style: TextStyle(
+                        fontFamily: 'avenir',
+                        color: Colors.white,
+                        fontSize: 64),
                   ),
                   Text(
                     formattedDate,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(
+                        fontFamily: 'avenir',
+                        color: Colors.white,
+                        fontSize: 20),
                   ),
                   ClockView(),
                   Text(
                     'Timezone',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(
+                        fontFamily: 'avenir',
+                        color: Colors.white,
+                        fontSize: 20),
                   ),
                   SizedBox(
                     height: 16,
@@ -84,7 +87,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text(
                         'UTC' + offsetSign + timeZoneString,
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(
+                            fontFamily: 'avenir',
+                            color: Colors.white,
+                            fontSize: 14),
                       ),
                     ],
                   )
@@ -93,6 +99,29 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Padding buildMenuButton(String title, String image) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: FlatButton(
+        onPressed: () {},
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              image,
+              scale: 1.5,
+            ),
+            SizedBox(height: 16),
+            Text(
+              title ?? '',
+              style: TextStyle(
+                  fontFamily: 'avenir', color: Colors.white, fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }
