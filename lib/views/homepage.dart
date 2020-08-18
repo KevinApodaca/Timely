@@ -1,6 +1,9 @@
+import 'package:Timely/models/data.dart';
+import 'package:Timely/models/menu_info.dart';
 import 'package:Timely/widgets/clock_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,12 +27,9 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              buildMenuButton('Clock', 'assets/clock_icon.png'),
-              buildMenuButton('Alarm', 'assets/alarm_icon.png'),
-              buildMenuButton('Timer', 'assets/timer_icon.png'),
-              buildMenuButton('Stopwatch', 'assets/stopwatch_icon.png'),
-            ],
+            children: menuItems
+                .map((currentMenuInfo) => buildMenuButton(currentMenuInfo))
+                .toList(),
           ),
           VerticalDivider(
             color: Colors.white54,
@@ -133,26 +133,34 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Padding buildMenuButton(String title, String image) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: FlatButton(
-        onPressed: () {},
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              image,
-              scale: 1.5,
-            ),
-            SizedBox(height: 16),
-            Text(
-              title ?? '',
-              style: TextStyle(
-                  fontFamily: 'avenir', color: Colors.white, fontSize: 14),
-            ),
-          ],
-        ),
-      ),
+  Widget buildMenuButton(MenuInfo currentMenuInfo) {
+    return Consumer<MenuInfo>(
+      builder: (BuildContext context, MenuInfo value, Widget child) {
+        return FlatButton(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          color: currentMenuInfo.menuType == value.menuType
+              ? Colors.red
+              : Colors.transparent,
+          onPressed: () {
+            var menuInfo = Provider.of<MenuInfo>(context, listen: false);
+            menuInfo.updateMenu(currentMenuInfo);
+          },
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                currentMenuInfo.imageSrc,
+                scale: 1.5,
+              ),
+              SizedBox(height: 16),
+              Text(
+                currentMenuInfo.title ?? '',
+                style: TextStyle(
+                    fontFamily: 'avenir', color: Colors.white, fontSize: 14),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
