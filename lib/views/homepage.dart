@@ -41,59 +41,89 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Timely',
-                    style: TextStyle(
-                        fontFamily: 'avenir',
-                        color: Colors.white,
-                        fontSize: 24),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Text(
+                      'Timely',
+                      style: TextStyle(
+                          fontFamily: 'avenir',
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          fontSize: 24),
+                    ),
                   ),
-                  SizedBox(
-                    height: 32,
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          formattedTime,
+                          style: TextStyle(
+                              fontFamily: 'avenir',
+                              color: Colors.white,
+                              fontSize: 64),
+                        ),
+                        Text(
+                          formattedDate,
+                          style: TextStyle(
+                              fontFamily: 'avenir',
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white,
+                              fontSize: 20),
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    formattedTime,
-                    style: TextStyle(
-                        fontFamily: 'avenir',
-                        color: Colors.white,
-                        fontSize: 64),
-                  ),
-                  Text(
-                    formattedDate,
-                    style: TextStyle(
-                        fontFamily: 'avenir',
-                        color: Colors.white,
-                        fontSize: 20),
-                  ),
-                  ClockView(),
-                  Text(
-                    'Timezone',
-                    style: TextStyle(
-                        fontFamily: 'avenir',
-                        color: Colors.white,
-                        fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.language,
-                        color: Colors.white,
+                  Flexible(
+                    flex: 5,
+                    fit: FlexFit.tight,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ClockView(
+                        size: MediaQuery.of(context).size.height / 4,
                       ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        'UTC' + offsetSign + timeZoneString,
-                        style: TextStyle(
-                            fontFamily: 'avenir',
-                            color: Colors.white,
-                            fontSize: 14),
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Timezone',
+                          style: TextStyle(
+                              fontFamily: 'avenir',
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.language,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Text(
+                              'UTC' + offsetSign + timeZoneString,
+                              style: TextStyle(
+                                  fontFamily: 'avenir',
+                                  color: Colors.white,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
