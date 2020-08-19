@@ -1,6 +1,7 @@
+import 'package:Timely/const/theme_data.dart';
 import 'package:Timely/enums.dart';
 
-import 'alartm_info.dart';
+import 'alarm_info.dart';
 import 'menu_info.dart';
 
 List<MenuInfo> menuItems = [
@@ -12,6 +13,8 @@ List<MenuInfo> menuItems = [
 ];
 
 List<AlarmInfo> alarms = [
-  AlarmInfo(DateTime.now().add(Duration(hours: 1)), desc: 'Office Hours'),
-  AlarmInfo(DateTime.now().add(Duration(hours: 2)), desc: 'Roast Alex'),
+  AlarmInfo(DateTime.now().add(Duration(hours: 1)),
+      desc: 'Office Hours', gradientColors: GradientColors.sky),
+  AlarmInfo(DateTime.now().add(Duration(hours: 2)),
+      desc: 'Roast Alex', gradientColors: GradientColors.sunset),
 ];

@@ -15,6 +15,7 @@ class CustomColors {
   static Color hourHandEndColor = Color(0xFFEA74AB);
 }
 
+/* From Adobe XD */
 class GradientColors {
   final List<Color> colors;
   GradientColors(this.colors);

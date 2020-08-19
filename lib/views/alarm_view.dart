@@ -27,17 +27,18 @@ class _AlarmPageState extends State<AlarmPage> {
             child: ListView(
               children: alarms.map((alarm) {
                 return Container(
+                  margin: const EdgeInsets.only(bottom: 32),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.purple, Colors.red],
+                      colors: [Colors.lightBlue, Colors.blue],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.red.withOpacity(0.4),
+                          color: Colors.blue.withOpacity(0.4),
                           blurRadius: 8,
                           spreadRadius: 2,
                           offset: Offset(4, 4)),
